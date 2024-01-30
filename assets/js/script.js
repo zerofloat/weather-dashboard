@@ -14,7 +14,9 @@ $('#search-button').on('click' , function () {
         })
         .then(function (data) {
             var cityWeather = data.data;
-            console.log(data);
+            var cityCurrentTemp = (data.main.temp - 273.15).toFixed(2) + " \u00B0C";
+            var cityCurrentWind = data.wind.speed.toFixed(1) + " KPH";
+            console.log(cityCurrentWind);
 
         })
 })
