@@ -3,6 +3,8 @@ var cityInput;
 var key;
 var currentWeatherURL;
 var fiveDayForecastURL;
+var iconURL;
+var image;
 var todayDate;
 var todayDiv;
 var todayHeading;
@@ -21,7 +23,6 @@ $('#search-button').on('click' , function () {
     event.preventDefault();
     cityInput = $('#search-input').val().trim();
     city = capitalizeFirstLetter(cityInput);
-    console.log(city);
     key = 'e7868cd101d6d925934597a0f7faa75e';
     currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${key}`;
     fiveDayForecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${key}`;
@@ -31,17 +32,22 @@ $('#search-button').on('click' , function () {
             return response.json();
         })
         .then(function (data) {
+            console.log(data);
             $('#today').empty();
             todayDate = dayjs().format('DD/MM/YYYY');
             cityCurrentTemp = 'Temp: ' + (data.main.temp - 273.15).toFixed(2) + ' \u00B0C';
             cityCurrentWind = 'Wind: ' + data.wind.speed.toFixed(1) + ' KPH';
             cityCurrentHum = 'Humidity: ' + data.main.humidity + '%';
-            cityCurrentIcon = data.main.icon;
+            cityCurrentIcon = data.weather[0].icon;
+            console.log(cityCurrentIcon);
+            iconURL = `https://openweathermap.org/img/wn/${cityCurrentIcon}@2x.png`;
             
             
             todayDiv = $('#today');
-            todayHeading = $('<h3>').text(`${city} (${todayDate}) ${cityCurrentIcon}`);
+            iconImage = $('<img>').attr('src', iconURL);
+            todayHeading = $('<h3>').text(`${city} (${todayDate})`).append(iconImage);
+            // ${cityCurrentIcon}
             todayDiv.append(todayHeading);
-            console.log(cityCurrentWind);
+            // console.log(cityCurrentWind);
         })
 })
