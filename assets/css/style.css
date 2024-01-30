@@ -1,5 +1,9 @@
 * {
-    border: hotpink solid 1px;
+    /* border: hotpink solid 1px; */
+}
+
+.container_fluid {
+    border: black solid 1px;
 }
 
 header {
@@ -9,4 +13,9 @@ header {
 
 .card-body {
     background-color: rgb(45, 62, 80);
+}
+
+#today {
+    padding-left: 5px;
+    border: darkgray solid 1px;
 }
