@@ -2,17 +2,21 @@
     border: hotpink solid 1px;
 } */
 
-.container_fluid {
-    border: black solid 1px;
-}
-
 header {
-   /* w3schools.com/css/css3_gradients.asp */
+    /* w3schools.com/css/css3_gradients.asp */
     background-image: linear-gradient(to right, rgb(11, 94, 215), rgb(33, 14, 81));
 }
 
 .card-body {
     background-color: rgb(45, 62, 80);
+}
+
+.container_fluid {
+    border: black solid 1px;
+}
+
+.hide {
+    display: none;
 }
 
 #today {

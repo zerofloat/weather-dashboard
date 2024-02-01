@@ -17,6 +17,14 @@ var currentHumEl;
 var forecastEach;
 var forecastObj = {};
 var forecastArray = [];
+var forecastIcon;
+var forecastIconURL;
+var forecastTemp;
+var forecastWind;
+var forecastHum;
+var forecastTempEl;
+var forecastWindEl;
+var forecastHumEl;
 
 console.log('JS loaded');
 
@@ -47,7 +55,6 @@ $('#search-button').on('click', function () {
                 cityCurrentWind = 'Wind: ' + data.wind.speed.toFixed(1) + ' KPH';
                 cityCurrentHum = 'Humidity: ' + data.main.humidity + '%';
                 cityCurrentIcon = data.weather[0].icon;
-                console.log(cityCurrentIcon);
                 iconURL = `https://openweathermap.org/img/wn/${cityCurrentIcon}@2x.png`;
 
                 //create elements for stored strings
@@ -74,30 +81,54 @@ $('#search-button').on('click', function () {
             return response.json();
         })
         .then(function (data) {
+
             forecastArray = [];
-            //iterate through loop to store forecast for next 5 days
+            forecastDiv = document.getElementById("forecast");
+            forecastDiv.classList.toggle("hide");
+            //iterate through loop to store each forecast obj in array for next 5 days
             for (let i = 0; i < 5; i++) {
                 forecastEach = data.list[i];
                 forecastObj = {
-
+                    city: city,
                     temperature: forecastEach.main.temp,
                     wind_speed: forecastEach.wind.speed,
                     humidity: forecastEach.main.humidity
-                
+
                 };
-            
+                //push five day forecast to localStorage
                 forecastArray = JSON.parse(localStorage.getItem('forecastArray')) || [];
                 forecastArray.push(forecastObj);
                 localStorage.setItem('forecastArray', JSON.stringify(forecastArray));
-                // console.log(forecastEach.main.temp,
-                // forecastEach.wind.speed,
-                // forecastEach.main.humidity);
 
-                // forecastArray.push(forecastEach.main.temp, forecastEach.wind.speed, forecastEach.main.humidity);
+                // //create elements for stored strings
+                // todayDiv = $('#today');
+                // iconImage = $('<img>').attr('src', iconURL);
+                // todayHeading = $('<h2>').text(`${city} (${todayDate})`).append(iconImage);
+                // currentTempEl = $('<p>').text(`${cityCurrentTemp}`);
+                // currentWindEl = $('<p>').text(`${cityCurrentWind}`);
+                // currentHumEl = $('<p>').text(`${cityCurrentHum}`);
+                
+                
+                
+                // iconImage = $('<img>').attr('src', iconURL);
+                // todayHeading = $('<h2>').text(`${city} (${todayDate})`).append(iconImage);
+                // currentTempEl = $('<p>').text(`${cityCurrentTemp}`);
+                // currentWindEl = $('<p>').text(`${cityCurrentWind}`);
+                // currentHumEl = $('<p>').text(`${cityCurrentHum}`);
+                // // forecastDiv.append
+
+
+
+                forecastIcon = data.list.weather[0].icon;
+                forecastIconURL = `https://openweathermap.org/img/wn/${forecastIconURL}@2x.png`;
+                forecastIcon = $('<img>').attr('src', forecastIconURL);
             }
-            console.log(forecastArray);
         }
-            // forecastArray.push(forecastEach.main.temp, forecastEach.wind.speed, forecastEach.main.humidity);
         )
 
+})
+
+$('#clear-button').on('click', function () {
+    event.preventDefault;
+    localStorage.clear();
 })
