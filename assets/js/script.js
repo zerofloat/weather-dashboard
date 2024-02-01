@@ -11,6 +11,9 @@ var todayHeading;
 var cityCurrentTemp;
 var cityCurrentWind;
 var cityCurrentHum;
+var currentTempEl;
+var currentWindEl;
+var currentHumEl;
 
 console.log('JS loaded');
 
@@ -46,8 +49,12 @@ $('#search-button').on('click' , function () {
             todayDiv = $('#today');
             iconImage = $('<img>').attr('src', iconURL);
             todayHeading = $('<h3>').text(`${city} (${todayDate})`).append(iconImage);
+            currentTempEl = $('<p>').text(`${cityCurrentTemp}`);
+            currentWindEl = $('<p>').text(`${cityCurrentWind}`);
+            currentHumEl = $('<p>').text(`${cityCurrentHum}`);
+
             // ${cityCurrentIcon}
-            todayDiv.append(todayHeading);
+            todayDiv.append(todayHeading, currentTempEl, currentWindEl, currentHumEl);
             // console.log(cityCurrentWind);
         })
 })
