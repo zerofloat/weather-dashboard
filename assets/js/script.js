@@ -35,7 +35,8 @@ $('#search-button').on('click' , function () {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            
+            if (data.cod !== '404') {
             $('#today').empty();
             todayDate = dayjs().format('DD/MM/YYYY');
             cityCurrentTemp = 'Temp: ' + (data.main.temp - 273.15).toFixed(2) + ' \u00B0C';
@@ -48,13 +49,18 @@ $('#search-button').on('click' , function () {
             
             todayDiv = $('#today');
             iconImage = $('<img>').attr('src', iconURL);
-            todayHeading = $('<h3>').text(`${city} (${todayDate})`).append(iconImage);
+            todayHeading = $('<h2>').text(`${city} (${todayDate})`).append(iconImage);
             currentTempEl = $('<p>').text(`${cityCurrentTemp}`);
             currentWindEl = $('<p>').text(`${cityCurrentWind}`);
             currentHumEl = $('<p>').text(`${cityCurrentHum}`);
 
-            // ${cityCurrentIcon}
             todayDiv.append(todayHeading, currentTempEl, currentWindEl, currentHumEl);
-            // console.log(cityCurrentWind);
+
+        } else {
+            todayDiv = $('#today');
+            todayHeading = $('<h2>').text(`${city} is not a city, please try again!`);
+            todayDiv.append(todayHeading);
+        }
+
         })
 })
