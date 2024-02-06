@@ -17,8 +17,10 @@ var currentHumEl;
 var forecastEach;
 var forecastObj = {};
 var forecastArray = [];
+var forecastDiv;
 var forecastIcon;
 var forecastIconURL;
+var forecastImg;
 var forecastTemp;
 var forecastWind;
 var forecastHum;
@@ -67,7 +69,7 @@ $('#search-button').on('click', function () {
 
                 //render to page
                 todayDiv.append(todayHeading, currentTempEl, currentWindEl, currentHumEl);
-                //failed input validation
+                //if failed input validation
             } else {
                 $('#today').empty();
                 todayDiv = $('#today');
@@ -84,15 +86,23 @@ $('#search-button').on('click', function () {
 
             forecastArray = [];
             forecastDiv = document.getElementById("forecast");
-            forecastDiv.classList.toggle("hide");
+            // forecastDiv.classList.toggle("hide");
+            console.log(data.list[0].weather[0].icon);
+
+
+            // forecastIcon = data.weather.icon;
+            // forecastIconURL = `https://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
+            // forecastImg = $('<img>').attr('src', forecastIconURL);
             //iterate through loop to store each forecast obj in array for next 5 days
             for (let i = 0; i < 5; i++) {
+                //iterable for each day of forecast
                 forecastEach = data.list[i];
                 forecastObj = {
                     city: city,
                     temperature: forecastEach.main.temp,
                     wind_speed: forecastEach.wind.speed,
-                    humidity: forecastEach.main.humidity
+                    humidity: forecastEach.main.humidity,
+                    icon: forecastEach.weather[0].icon
 
                 };
                 //push five day forecast to localStorage
@@ -101,13 +111,20 @@ $('#search-button').on('click', function () {
                 localStorage.setItem('forecastArray', JSON.stringify(forecastArray));
 
                 // //create elements for stored strings
-                // todayDiv = $('#today');
-                // iconImage = $('<img>').attr('src', iconURL);
-                // todayHeading = $('<h2>').text(`${city} (${todayDate})`).append(iconImage);
-                // currentTempEl = $('<p>').text(`${cityCurrentTemp}`);
-                // currentWindEl = $('<p>').text(`${cityCurrentWind}`);
-                // currentHumEl = $('<p>').text(`${cityCurrentHum}`);
-                
+
+                console.log(forecastObj['icon']);
+                forecastDiv = $('#forecast');
+                forecastTempEl = $('<p>').text('Temp: ' + (forecastArray[i]['temperature'] - 273.15).toFixed(2) + '\u00B0C');
+                forecastWindEl = $('<p>').text('Wind: ' + forecastArray[i]['wind_speed'].toFixed(1) + ' KPH');
+                forecastHumEl =  $('<p>').text('Humidity: ' + forecastArray[i]['humidity'] + '%');
+                forecastImg = $('<img>').attr(('src',`https://openweathermap.org/img/wn/${forecastObj['icon']}@2x.png`));
+                forecastDiv.append(forecastImg, forecastTempEl, forecastWindEl, forecastHumEl);
+
+
+
+                // cityCurrentTemp = 'Temp: ' + (data.main.temp - 273.15).toFixed(2) + ' \u00B0C';
+                // cityCurrentWind = 'Wind: ' + data.wind.speed.toFixed(1) + ' KPH';
+                // cityCurrentHum = 'Humidity: ' + data.main.humidity + '%';
                 
                 
                 // iconImage = $('<img>').attr('src', iconURL);
@@ -119,9 +136,7 @@ $('#search-button').on('click', function () {
 
 
 
-                forecastIcon = data.list.weather[0].icon;
-                forecastIconURL = `https://openweathermap.org/img/wn/${forecastIconURL}@2x.png`;
-                forecastIcon = $('<img>').attr('src', forecastIconURL);
+
             }
         }
         )
