@@ -27,6 +27,7 @@ var forecastHum;
 var forecastTempEl;
 var forecastWindEl;
 var forecastHumEl;
+var forecastDate;
 
 console.log('JS loaded');
 
@@ -90,7 +91,7 @@ $('#search-button').on('click', function () {
             console.log(data.list[0].weather[0].icon);
 
 
-            // forecastIcon = data.weather.icon;
+            //  = data.weather.icon;
             // forecastIconURL = `https://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
             // forecastImg = $('<img>').attr('src', forecastIconURL);
             //iterate through loop to store each forecast obj in array for next 5 days
@@ -114,6 +115,7 @@ $('#search-button').on('click', function () {
 
                 console.log(forecastObj['icon']);
                 forecastDiv = $('#forecast');
+
                 forecastTempEl = $('<p>').text('Temp: ' + (forecastArray[i]['temperature'] - 273.15).toFixed(2) + '\u00B0C');
                 forecastWindEl = $('<p>').text('Wind: ' + forecastArray[i]['wind_speed'].toFixed(1) + ' KPH');
                 forecastHumEl =  $('<p>').text('Humidity: ' + forecastArray[i]['humidity'] + '%');
