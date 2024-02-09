@@ -2,6 +2,8 @@
 
 This repository features a weather dashboard which makes use of an API, DOM manipulation via jQuery and Bootstrap for styling. It allows users to quickly find today's weather and the forecast for the next 5 days for a given city. Local storage and additional styling coming soon.
 
+![screenshot of weather dashboard](./assets/weather-dashboard-screenshot.png)
+
 ## Installation
 
 N/A
