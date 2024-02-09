@@ -1,5 +1,3 @@
-dayjs.extend(window.dayjs_plugin_duration);
-
 var city;
 var cityInput;
 var key;
