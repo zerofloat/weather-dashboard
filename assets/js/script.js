@@ -120,12 +120,15 @@ $('#search-button').on('click', function () {
                 forecastDiv = $('#forecast');
 
                 forecastDate = dayjs();
+                forecastImg = $('<img>').attr({
+                    'src': `https://openweathermap.org/img/wn/${forecastObj['icon']}@2x.png`,
+                    'id' : 'forecast-image'
+                });
                 forecastDateIncr = forecastDate.add([i], 'day').format('DD/MM/YYYY');
-                forecastDateEl = $('<p>').text(forecastDateIncr);
+                forecastDateEl = $('<p>').text(forecastDateIncr).append(forecastImg);
                 forecastTempEl = $('<p>').text('Temp: ' + (forecastArray[i]['temperature'] - 273.15).toFixed(2) + '\u00B0C');
                 forecastWindEl = $('<p>').text('Wind: ' + forecastArray[i]['wind_speed'].toFixed(1) + ' KPH');
                 forecastHumEl =  $('<p>').text('Humidity: ' + forecastArray[i]['humidity'] + '%');
-                forecastImg = $('<img>').attr(('src',`https://openweathermap.org/img/wn/${forecastObj['icon']}@2x.png`));
                 forecastDiv.append(forecastDateEl, forecastImg, forecastTempEl, forecastWindEl, forecastHumEl);
 
 
