@@ -19,6 +19,7 @@ var currentHumEl;
 var forecastEach;
 var forecastObj = {};
 var forecastArray = [];
+var forecastContainer;
 var forecastDiv;
 var forecastIcon;
 var forecastIconURL;
@@ -117,7 +118,8 @@ $('#search-button').on('click', function () {
                 // //create elements for stored strings
 
                 console.log(forecastObj['icon']);
-                forecastDiv = $('#forecast');
+                
+                forecastDiv = $('#forecast').attr('class', 'card');
 
                 forecastDate = dayjs();
                 forecastImg = $('<img>').attr({
@@ -125,7 +127,7 @@ $('#search-button').on('click', function () {
                     'id' : 'forecast-image'
                 });
                 forecastDateIncr = forecastDate.add([i], 'day').format('DD/MM/YYYY');
-                forecastDateEl = $('<p>').text(forecastDateIncr).append(forecastImg);
+                forecastDateEl = $('<h5>').text(forecastDateIncr).append(forecastImg);
                 forecastTempEl = $('<p>').text('Temp: ' + (forecastArray[i]['temperature'] - 273.15).toFixed(2) + '\u00B0C');
                 forecastWindEl = $('<p>').text('Wind: ' + forecastArray[i]['wind_speed'].toFixed(1) + ' KPH');
                 forecastHumEl =  $('<p>').text('Humidity: ' + forecastArray[i]['humidity'] + '%');
